@@ -13,16 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
+@RequestMapping("/posts")
 public class PostController {
 
 	RestTemplate restTemplate = new RestTemplate();
 
-	@RequestMapping("/")
-	public String hello() {
-		return "index";
-	}
-
-	@RequestMapping("/posts")
+	@RequestMapping("")
 	public List<Post> getPosts(@RequestParam("userId") Optional<String> userId) {
 		String url = "https://jsonplaceholder.typicode.com/posts";
 		if(userId.isPresent())
@@ -32,7 +28,7 @@ public class PostController {
 		return posts;
 	}
 	
-	@RequestMapping("/posts/{id}")
+	@RequestMapping("/{id}")
 	public Post getPost(@PathVariable("id") String id) {
 		System.out.println("Here : "+id);
 		String url = "https://jsonplaceholder.typicode.com/posts";
@@ -40,6 +36,16 @@ public class PostController {
 		ResponseEntity<Post> responsePosts = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Post>() {});
 		Post post = responsePosts.getBody();
 		return post;
+	}
+	
+	@RequestMapping("/{id}/comments")
+	public List<Comment> getPostComments(@PathVariable("id") String id) {
+		System.out.println("Here : "+id);
+		String url = "https://jsonplaceholder.typicode.com/posts";
+		url = url+"/"+id+"/comments";
+		ResponseEntity<List<Comment>> responsePosts = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<Comment>>() {});
+		List<Comment> comments = responsePosts.getBody();
+		return comments;
 	}
 
 }
