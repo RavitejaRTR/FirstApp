@@ -1,9 +1,11 @@
 com\self\test\App.class
 com\self\test\CommentsController.class
+com\self\test\PageVisitor.class
 com\self\test\PostController$2.class
 com\self\test\Comment.class
 com\self\test\PostController.class
 com\self\test\hibernateTest.class
+com\self\test\PageVisitorDemo.class
 com\self\test\PageController.class
 com\self\test\Visitor.class
 com\self\test\PostController$1.class

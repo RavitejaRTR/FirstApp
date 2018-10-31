@@ -1,3 +1,4 @@
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
 <body>
 
@@ -8,6 +9,34 @@
 <br><br>
 
 <a href="/comments">comments</a>
+
+<br><br>
+
+<form action="#" th:action="@{/index}" th:object="${pageVisitor}" method="post">
+	Name: <input type="text" th:field="*{name}" />
+		
+	<br><br>
+
+	Email id: <input type="text" th:field="*{email}" />
+		
+	<br><br>
+	
+	Contact number: <input type="text" th:field="*{contact}" />
+		
+	<br><br>
+
+	Profession: <input type="text" th:field="*{profession}" />
+		
+	<br><br>
+
+	Comment: <input type="text" th:field="*{comment}" />
+		
+	<br><br>
+
+	<input type="submit"/>
+
+</form>
+
 
 
 </body>

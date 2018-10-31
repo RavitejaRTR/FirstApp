@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -13,24 +16,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PageController {
 	
-	String url = "jdbc:mysql://localhost:3306/world?useSSL=false";
-	String user = "root";
-	String pswd = "admin";
-	
-	@RequestMapping("/")
-	public String homepage() {
+	@GetMapping("/index")
+	public String homepage(Model theModel) {
+		PageVisitor thePageVisitor = new PageVisitor();
 		
-		try {
-			
-			System.out.println("Trying to connect to COuntry database");
-			Connection myConn = 
-					DriverManager.getConnection(url, user, pswd);
-			System.out.println("Connection successful");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		theModel.addAttribute("pageVisitor", thePageVisitor);
 		
 		return "index";
+	}
+	
+	@PostMapping("/index")
+	public String storeVisitor(@ModelAttribute("pageVisitor") PageVisitor thePageVisitor,
+						Model theModel) {
+		
+		System.out.println(thePageVisitor.getName());
+		theModel.addAttribute("name","world");
+		return "homepage";
 	}
 	
 	@RequestMapping("/home")
