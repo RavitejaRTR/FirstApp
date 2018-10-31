@@ -1,14 +1,13 @@
 package com.self.test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Optional;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,7 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PageController {
 	
-	@GetMapping("/index")
+	private SessionFactory factory = new Configuration()
+			.configure("hibernate.cfg.xml")
+			.addAnnotatedClass(PageVisitor.class)
+			.buildSessionFactory();
+	
+	private Session session = factory.getCurrentSession();
+	
+	@RequestMapping("/")
 	public String homepage(Model theModel) {
 		PageVisitor thePageVisitor = new PageVisitor();
 		
@@ -25,10 +31,15 @@ public class PageController {
 		return "index";
 	}
 	
-	@PostMapping("/index")
+	@RequestMapping("/saveFormdata")
 	public String storeVisitor(@ModelAttribute("pageVisitor") PageVisitor thePageVisitor,
 						Model theModel) {
-		
+		System.out.println("Beginning transaction...");
+		session.beginTransaction();
+		System.out.println("Saving object...");
+		session.save(thePageVisitor);
+		System.out.println("Commiting to database...");
+		session.getTransaction().commit();
 		System.out.println(thePageVisitor.getName());
 		theModel.addAttribute("name","world");
 		return "homepage";
@@ -40,4 +51,5 @@ public class PageController {
 				name.isPresent()?name.get():"world");
 		return "homepage";
 	}
+	
 }

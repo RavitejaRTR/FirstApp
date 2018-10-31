@@ -12,7 +12,11 @@
 
 <br><br>
 
-<form action="#" th:action="@{/index}" th:object="${pageVisitor}" method="post">
+<a href="/customers">customers</a>
+
+<br><br>
+
+<form action="#" th:action="@{/saveFormdata}" th:object="${pageVisitor}" method="post">
 	Name: <input type="text" th:field="*{name}" />
 		
 	<br><br>

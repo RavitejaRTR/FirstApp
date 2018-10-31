@@ -1,0 +1,32 @@
+<html>
+
+<body>
+
+<h2>Create a Customer</h2>
+
+<br><br>
+
+<form action="#" th:action="@{/customers/save}" th:object="${customer}" method="post">
+	First Name: <input type="text" th:field="*{first_name}" />
+		
+	<br><br>
+	
+	Last Name: <input type="text" th:field="*{last_name}" />
+		
+	<br><br>
+
+	Email id: <input type="text" th:field="*{email}" />
+		
+	<br><br>
+	
+	Contact number: <input type="text" th:field="*{contact}" />
+		
+	<br><br>
+
+	<input type="submit"/>
+
+</form>
+
+</body>
+
+</html>
