@@ -1,13 +1,22 @@
 <html>
-
 <body>
 
 <h2>Customers List page</h2>
 
 <br><br>
 
-<a href="/createCustomer"></a>
+<a href="/customers/createCustomer">Create customer</a>
+
+<br><br>
+
+<table>
+    <tr data-th-each="customer : ${customers}">
+        <td data-th-text="${customer.first_name}">...</td>
+        <td data-th-text="${customer.last_name}">...</td>
+        <td data-th-text="${customer.email}">...</td>
+        <td data-th-text="${customer.contact}">...</td>
+    </tr>
+</table>
 
 </body>
-
 </html>

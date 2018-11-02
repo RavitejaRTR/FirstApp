@@ -52,21 +52,13 @@ public class DBConfiguration {
 
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
-    	System.out.println("1");
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        System.out.println("2");
+    	LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        System.out.println("3");
         sessionFactory.setPackagesToScan(PACKAGES_TO_SCAN);
-        System.out.println("4");
         Properties hibernateProperties = new Properties();
-        System.out.println("5");
         hibernateProperties.put("hibernate.dialect", DIALECT);
-        System.out.println("6");
         hibernateProperties.put("hibernate.show_sql", SHOW_SQL);
-        System.out.println("7");
         hibernateProperties.put("hibernate.hbm2ddl.auto", HBM2DDL_AUTO);
-        System.out.println("8");
         sessionFactory.setHibernateProperties(hibernateProperties);
 
         return sessionFactory;
